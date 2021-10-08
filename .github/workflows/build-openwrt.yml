@@ -94,6 +94,14 @@ jobs:
       run: |
         curl -k --data chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" --data "text=🎉 主人：您正在使用【${{matrix.target}}】文件夹编译固件中(${{env.CangKu}}仓库的#${{env.Run_number}}号),请耐心等待...... 😋" "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage"
 
+    - name: 微信通知
+      uses: emon100/Action-Serverchan@v2
+      if: env.SERVERCHAN_SCKEY == 'true'
+      with:
+        SCKEY: ${{ secrets.SCKEY }}
+        text: 主人${{matrix.target}}编译开始啦
+        desp: 主人您要编译的[${{matrix.target}}]固件正在努力耕耘中(${{env.CangKu}}仓库的#${{env.Run_number}}号),请耐心等待......
+
     - name: 部署编译环境
       env:
         DEBIAN_FRONTEND: noninteractive
@@ -315,3 +323,11 @@ jobs:
       if: steps.organizer.outputs.status == 'success' && env.SERVERCHAN_SCKEY == 'true'
       run: |
         curl -k --data chat_id="${{ secrets.TELEGRAM_CHAT_ID }}" --data "text=我亲爱的✨主人✨：您使用【${{matrix.target}}】文件夹编译的[${{ env.CODE }}-${{ env.TARGET_PROFILE }}]固件(${{env.CangKu}}仓库的#${{env.Run_number}}号)顺利编译完成了！💐" "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage"
+
+    - name: 微信通知
+      uses: emon100/Action-Serverchan@v2
+      if: steps.organizer.outputs.status == 'success' && env.SERVERCHAN_SCKEY == 'true'
+      with:
+        SCKEY: ${{ secrets.SCKEY }}
+        text: 恭喜主人${{matrix.target}}固件编译成功！
+        desp: 我亲爱的主人您使用${{matrix.target}}文件夹编译的[ ${{ env.CODE }}-${{ env.TARGET_PROFILE }} ]固件(${{ env.CangKu }}仓库的#${{ env.Run_number }}号)顺利编译完成了！
