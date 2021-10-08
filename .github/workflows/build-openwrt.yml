@@ -35,7 +35,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        target: [Lede_xiaomimini]
+        target: [Lede_source,Lede_xiaomimini]
 
         # [Lede_source,Lienol_source,Mortal_source,openwrt_amlogic,Lede_xiaomimini]
 
