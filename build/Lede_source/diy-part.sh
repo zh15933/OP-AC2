@@ -8,19 +8,20 @@
 # 如果你有编译ipv6的话，‘去掉LAN口使用内置的 IPv6 管理’代码前面也加 # 注释掉
 
 
+git clone -b 18.06 https://github.com/garypang13/luci-theme-edge.git package/xhh/luci-theme-edge              # 拉取edge主题
 
 cat >$NETIP <<-EOF
-uci set network.lan.ipaddr='192.168.2.2'                                    # IPv4 地址(openwrt后台地址)
+uci set network.lan.ipaddr='192.168.5.1'                                    # IPv4 地址(openwrt后台地址)
 uci set network.lan.netmask='255.255.255.0'                                 # IPv4 子网掩码
-uci set network.lan.gateway='192.168.2.1'                                   # IPv4 网关
-uci set network.lan.broadcast='192.168.2.255'                               # IPv4 广播
+uci set network.lan.gateway='192.168.5.1'                                   # IPv4 网关
+uci set network.lan.broadcast='192.168.5.255'                               # IPv4 广播
 uci set network.lan.dns='223.5.5.5 114.114.114.114'                         # DNS(多个DNS要用空格分开)
 uci set network.lan.delegate='0'                                            # 去掉LAN口使用内置的 IPv6 管理
 uci commit network                                                          # 不要删除跟注释,除非上面全部删除或注释掉了
 #uci set dhcp.lan.ignore='1'                                                 # 关闭DHCP功能（去掉uci前面的#生效）
 #uci commit dhcp                                                             # 跟‘关闭DHCP功能’联动,同时启用或者删除跟注释（去掉uci前面的#生效）
-uci set system.@system[0].hostname='OpenWrt-123'                            # 修改主机名称为OpenWrt-123
-#sed -i 's/\/bin\/login/\/bin\/login -f root/' /etc/config/ttyd              # 设置ttyd免帐号登录，如若开启，进入OPENWRT后可能要重启一次才生效（去掉uci前面的#生效）
+#uci set system.@system[0].hostname='OpenWrt-123'                            # 修改主机名称为OpenWrt-123
+sed -i 's/\/bin\/login/\/bin\/login -f root/' /etc/config/ttyd              # 设置ttyd免帐号登录，如若开启，进入OPENWRT后可能要重启一次才生效（去掉uci前面的#生效）
 EOF
 
 sed -i "s/OpenWrt /${Author} compiled in $(TZ=UTC-8 date "+%Y.%m.%d") @ OpenWrt /g" $ZZZ           # 增加个性名字 ${Author} 默认为你的github帐号
@@ -39,17 +40,17 @@ EOF
 
 
 # 修改插件名字
-sed -i 's/"aMule设置"/"电驴下载"/g' `grep "aMule设置" -rl ./`
-sed -i 's/"网络存储"/"NAS"/g' `grep "网络存储" -rl ./`
-sed -i 's/"Turbo ACC 网络加速"/"网络加速"/g' `grep "Turbo ACC 网络加速" -rl ./`
-sed -i 's/"实时流量监测"/"流量"/g' `grep "实时流量监测" -rl ./`
-sed -i 's/"KMS 服务器"/"KMS激活"/g' `grep "KMS 服务器" -rl ./`
-sed -i 's/"TTYD 终端"/"命令窗"/g' `grep "TTYD 终端" -rl ./`
-sed -i 's/"USB 打印服务器"/"打印服务"/g' `grep "USB 打印服务器" -rl ./`
-sed -i 's/"Web 管理"/"Web"/g' `grep "Web 管理" -rl ./`
-sed -i 's/"管理权"/"改密码"/g' `grep "管理权" -rl ./`
-sed -i 's/"带宽监控"/"监控"/g' `grep "带宽监控" -rl ./`
-sed -i 's/"Argon 主题设置"/"Argon设置"/g' `grep "Argon 主题设置" -rl ./`
+#sed -i 's/"aMule设置"/"电驴下载"/g' `grep "aMule设置" -rl ./`
+#sed -i 's/"网络存储"/"NAS"/g' `grep "网络存储" -rl ./`
+#sed -i 's/"Turbo ACC 网络加速"/"网络加速"/g' `grep "Turbo ACC 网络加速" -rl ./`
+#sed -i 's/"实时流量监测"/"流量"/g' `grep "实时流量监测" -rl ./`
+#sed -i 's/"KMS 服务器"/"KMS激活"/g' `grep "KMS 服务器" -rl ./`
+#sed -i 's/"TTYD 终端"/"命令窗"/g' `grep "TTYD 终端" -rl ./`
+#sed -i 's/"USB 打印服务器"/"打印服务"/g' `grep "USB 打印服务器" -rl ./`
+#sed -i 's/"Web 管理"/"Web"/g' `grep "Web 管理" -rl ./`
+#sed -i 's/"管理权"/"改密码"/g' `grep "管理权" -rl ./`
+#sed -i 's/"带宽监控"/"监控"/g' `grep "带宽监控" -rl ./`
+#sed -i 's/"Argon 主题设置"/"Argon设置"/g' `grep "Argon 主题设置" -rl ./`
 
 
 # 整理固件包时候,删除您不想要的固件或者文件,让它不需要上传到Actions空间
