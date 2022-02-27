@@ -13,6 +13,9 @@ sed -i 's/192.168.1.1/192.168.5.1/g' package/base-files/files/bin/config_generat
 git clone -b 18.06 https://github.com/garypang13/luci-theme-edge.git package/xhh/luci-theme-edge              # 拉取edge主题
 
 cat >$NETIP <<-EOF
+#  下方的设置  我个人会遇到网络卡顿   所以注释掉了
+
+
 # uci set network.lan.ipaddr='192.168.5.1'                                    # IPv4 地址(openwrt后台地址)
 # uci set network.lan.netmask='255.255.255.0'                                 # IPv4 子网掩码
 # uci set network.lan.gateway='192.168.5.1'                                   # IPv4 网关
