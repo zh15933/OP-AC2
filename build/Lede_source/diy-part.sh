@@ -11,7 +11,7 @@
 git clone -b 18.06 https://github.com/garypang13/luci-theme-edge.git package/xhh/luci-theme-edge
 
 #删除大雕源码自带的网易云解锁-并拉取另一版本的解锁插件
-rm -rf ./package/lean/luci-app-unblockmusic && git clone https://github.com/UnblockNeteaseMusic/luci-app-unblockneteasemusic.git package/xhh/luci-app-UnblockNeteaseMusic
+rm -rf ./package/lean/luci-app-unblockmusic && git clone https://github.com/UnblockNeteaseMusic/luci-app-unblockneteasemusic package/xhh/luci-app-UnblockNeteaseMusic
 
 cat >$NETIP <<-EOF
 uci set network.lan.ipaddr='192.168.5.1'                                    # IPv4 地址(openwrt后台地址)
