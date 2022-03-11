@@ -10,9 +10,6 @@
 #拉取edge主题
 git clone -b 18.06 https://github.com/garypang13/luci-theme-edge.git package/xhh/luci-theme-edge
 
-#拉取另一版本的网易云解锁插件
-git clone https://github.com/UnblockNeteaseMusic/luci-app-unblockneteasemusic package/xhh/luci-app-UnblockNeteaseMusic
-
 cat >$NETIP <<-EOF
 uci set network.lan.ipaddr='192.168.5.1'                                    # IPv4 地址(openwrt后台地址)
 uci set network.lan.netmask='255.255.255.0'                                 # IPv4 子网掩码
