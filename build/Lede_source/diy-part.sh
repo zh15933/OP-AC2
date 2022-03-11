@@ -7,24 +7,20 @@
 # 如果你的OP是当主路由的话，网关、DNS、广播都不需要，代码前面加 # 注释掉，只保留后台地址和子网掩码就可以
 # 如果你有编译ipv6的话，‘去掉LAN口使用内置的 IPv6 管理’代码前面也加 # 注释掉
 
-#拉取edge主题
-git clone -b 18.06 https://github.com/garypang13/luci-theme-edge.git package/xhh/luci-theme-edge
 
-#删除大雕源码自带的网易云解锁-并拉取另一版本的解锁插件
-rm -rf ./package/lean/luci-app-unblockmusic && git clone https://github.com/UnblockNeteaseMusic/luci-app-unblockneteasemusic package/xhh/luci-app-UnblockNeteaseMusic
 
 cat >$NETIP <<-EOF
-uci set network.lan.ipaddr='192.168.5.1'                                    # IPv4 地址(openwrt后台地址)
+uci set network.lan.ipaddr='192.168.2.2'                                    # IPv4 地址(openwrt后台地址)
 uci set network.lan.netmask='255.255.255.0'                                 # IPv4 子网掩码
-uci set network.lan.gateway='192.168.5.3'                                   # IPv4 网关
-# uci set network.lan.broadcast='192.168.2.255'                               # IPv4 广播
+uci set network.lan.gateway='192.168.2.1'                                   # IPv4 网关
+uci set network.lan.broadcast='192.168.2.255'                               # IPv4 广播
 uci set network.lan.dns='223.5.5.5 114.114.114.114'                         # DNS(多个DNS要用空格分开)
 uci set network.lan.delegate='0'                                            # 去掉LAN口使用内置的 IPv6 管理
 uci commit network                                                          # 不要删除跟注释,除非上面全部删除或注释掉了
-uci set dhcp.lan.ignore='1'                                                 # 关闭DHCP功能（去掉uci前面的#生效）
-uci commit dhcp                                                             # 跟‘关闭DHCP功能’联动,同时启用或者删除跟注释（去掉uci前面的#生效）
-# uci set system.@system[0].hostname='OpenWrt-123'                            # 修改主机名称为OpenWrt-123
-sed -i 's/\/bin\/login/\/bin\/login -f root/' /etc/config/ttyd              # 设置ttyd免帐号登录，如若开启，进入OPENWRT后可能要重启一次才生效（去掉uci前面的#生效）
+#uci set dhcp.lan.ignore='1'                                                 # 关闭DHCP功能（去掉uci前面的#生效）
+#uci commit dhcp                                                             # 跟‘关闭DHCP功能’联动,同时启用或者删除跟注释（去掉uci前面的#生效）
+uci set system.@system[0].hostname='OpenWrt-123'                            # 修改主机名称为OpenWrt-123
+#sed -i 's/\/bin\/login/\/bin\/login -f root/' /etc/config/ttyd              # 设置ttyd免帐号登录，如若开启，进入OPENWRT后可能要重启一次才生效（去掉uci前面的#生效）
 EOF
 
 
@@ -36,7 +32,7 @@ sed -i '/CYXluq4wUazHjmCDBCqXF/d' $ZZZ                                          
 
 sed -i '/to-ports 53/d' $ZZZ                                                                        # 删除默认防火墙
 
-#sed -i 's/PATCHVER:=5.10/PATCHVER:=5.15/g' target/linux/x86/Makefile                               # x86机型,默认内核5.10，修改内核为5.15（去掉sed前面的#生效）
+#sed -i 's/PATCHVER:=5.15/PATCHVER:=5.10/g' target/linux/x86/Makefile                               # x86机型,默认内核5.15，修改内核为5.10（去掉sed前面的#生效）
 
 # K3专用，编译K3的时候只会出K3固件（去掉sed前面的#生效）
 #sed -i 's|^TARGET_|# TARGET_|g; s|# TARGET_DEVICES += phicomm_k3|TARGET_DEVICES += phicomm_k3|' target/linux/bcm53xx/image/Makefile
