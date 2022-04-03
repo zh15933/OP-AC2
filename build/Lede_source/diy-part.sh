@@ -7,47 +7,20 @@
 # 如果你的OP是当主路由的话，网关、DNS、广播都不需要，代码前面加 # 注释掉，只保留后台地址和子网掩码就可以
 # 如果你有编译ipv6的话，‘去掉LAN口使用内置的 IPv6 管理’代码前面也加 # 注释掉
 
-#  调整argon登录框为居中 
-  sed -i  " /.login-page {/i \\ 
-  .login-container {\n \ 
-    margin: auto;\n \ 
-    height: 500px\!important;\n \ 
-    min-height: 500px\!important;\n \ 
-    left: 0;\n \ 
-    right: 0;\n \ 
-    bottom: 0;\n \ 
-    margin-left: auto\!important;\n \ 
-    border-radius: 25px;\n \ 
-  }\n \ 
-  .login-form {\n \ 
-    background-color: rgba(255, 255, 255, 0)\!important;\n \ 
-    border-radius: 25px;\n \ 
-  }\n \ 
-  .login-form .brand {\n \ 
-    margin: 25px auto 25px 50px\!important;\n \ 
-  }\n \ 
-  .input-group {\n \ 
-    margin-bottom: 1rem\!important;\n \ 
-  }\n \ 
-  .input-group input {\n \ 
-    margin-bottom: 0\!important;\n \ 
-  }\n \ 
-  .ftc {\n \ 
-    bottom: 0\!important;\n \ 
-  } "  feeds/luci/themes/luci-theme-argon/htdocs/luci-static/argon/css/cascade.css
+
 
 cat >$NETIP <<-EOF
-uci set network.lan.ipaddr='192.168.5.1'                      # IPv4 地址(openwrt后台地址)
+uci set network.lan.ipaddr='192.168.2.2'                      # IPv4 地址(openwrt后台地址)
 uci set network.lan.netmask='255.255.255.0'                   # IPv4 子网掩码
-uci set network.lan.gateway='192.168.5.3'                     # IPv4 网关
-uci set network.lan.broadcast='192.168.5.255'                 # IPv4 广播
+uci set network.lan.gateway='192.168.2.1'                     # IPv4 网关
+uci set network.lan.broadcast='192.168.2.255'                 # IPv4 广播
 uci set network.lan.dns='223.5.5.5 114.114.114.114'           # DNS(多个DNS要用空格分开)
 uci set network.lan.delegate='0'                              # 去掉LAN口使用内置的 IPv6 管理(若用IPV6请注释或者删除这个)
 uci set dhcp.@dnsmasq[0].filter_aaaa='1'                      # 禁止解析 IPv6 DNS记录(若用IPV6请注释或者删除这个)
 
-uci set dhcp.lan.ignore='1'                                  # 关闭DHCP功能（去掉uci前面的#生效）
+#uci set dhcp.lan.ignore='1'                                  # 关闭DHCP功能（去掉uci前面的#生效）
 uci set system.@system[0].hostname='OpenWrt-123'              # 修改主机名称为OpenWrt-123
-uci set ttyd.@ttyd[0].command='/bin/login -f root'           # 设置ttyd免帐号登录（去掉uci前面的#生效）
+#uci set ttyd.@ttyd[0].command='/bin/login -f root'           # 设置ttyd免帐号登录（去掉uci前面的#生效）
 
 # 如果有用IPV6的话,可以使用以下命令创建IPV6客户端(LAN口)（去掉全部代码uci前面#号生效）
 #uci set network.ipv6=interface
